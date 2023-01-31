@@ -11,11 +11,7 @@ from django.urls import reverse
 from agriwise.users.forms import UserAdminChangeForm
 from agriwise.users.models import User
 from agriwise.users.tests.factories import UserFactory
-from agriwise.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from agriwise.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 
