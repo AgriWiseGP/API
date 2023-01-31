@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=agriwise
+POSTGRES_USER=fKgzZZjDHmEPvJABKNXWzMmFkxQPaXtS
+POSTGRES_PASSWORD=4ouk06kkjqKmsYVVZ7DORmUZ19EVw5Pgwjz6DROiClHVPrNvI1kayHbtKPmnDIyL
