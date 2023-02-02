@@ -109,6 +109,9 @@ DJOSER = {
     "SERIALIZERS": {
         "user_create": "agriwise.users.api.serializers.UserCreateSerializer"
     },
+    "EMAIL": {"activation": "djoser.email.ActivationEmail"},
+    "ACTIVATION_URL": "users/auth/api/users/activation/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": True,
 }
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"

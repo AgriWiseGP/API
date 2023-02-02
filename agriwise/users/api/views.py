@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
@@ -23,3 +23,21 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+
+class EmailActivation(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        user_id = decode_uid(kwargs["uid"])
+        user = User.objects.get(id=user_id)
+        if user:
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+                return Response(
+                    {"email": "Account Successfully Activated"},
+                    status=status.HTTP_200_OK,
+                )
+            return Response(
+                {"email": "Account is Already Activated"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
