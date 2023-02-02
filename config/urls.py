@@ -28,6 +28,7 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    path("users/", include("agriwise.users.api.urls")),
 ]
 
 if settings.DEBUG:
