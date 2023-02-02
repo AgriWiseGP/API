@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from djoser import utils
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
@@ -27,7 +28,7 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
 
 class EmailActivation(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
-        user_id = decode_uid(kwargs["uid"])
+        user_id = utils.decode_uid(kwargs["uid"])
         user = User.objects.get(id=user_id)
         if user:
             if not user.is_active:
