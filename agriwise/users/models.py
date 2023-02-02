@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.db.models import CharField
+from django.db.models import CharField, EmailField
 from django.utils.translation import gettext_lazy as _
 
 
@@ -22,6 +22,12 @@ class User(AbstractUser):
     name = CharField(_("Name of User"), blank=True, max_length=255)
     first_name = None
     last_name = None
+    email = EmailField(
+        error_messages={"unique": "A user with that email already exists."},
+        max_length=254,
+        verbose_name="email address",
+        unique=True,
+    )
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
