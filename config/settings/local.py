@@ -29,6 +29,7 @@ CACHES = {
 EMAIL_HOST = env("EMAIL_HOST", default="mailhog")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = 1025
+DOMAIN = "0.0.0.0:8000"
 
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
