@@ -1,13 +1,16 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from djoser import utils
 from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from .serializers import UserSerializer
 
+token_generator = PasswordResetTokenGenerator()
 User = get_user_model()
 
 
@@ -27,12 +30,14 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
 
 
 class EmailActivation(generics.GenericAPIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, *args, **kwargs):
         user_id = utils.decode_uid(kwargs["uid"])
         user = User.objects.get(id=user_id)
         if user:
-            if not user.is_active:
-                user.is_active = True
+            if not user.is_verified:
+                user.is_verified = True
                 user.save()
                 return Response(
                     {"email": "Account Successfully Activated"},

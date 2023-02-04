@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -109,9 +110,14 @@ DJOSER = {
     "SERIALIZERS": {
         "user_create": "agriwise.users.api.serializers.UserCreateSerializer"
     },
-    "EMAIL": {"activation": "djoser.email.ActivationEmail"},
+    # "EMAIL": {"activation": "djoser.email.ActivationEmail"},
     "ACTIVATION_URL": "users/auth/api/users/activation/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
+}
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("JWT",),
 }
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"

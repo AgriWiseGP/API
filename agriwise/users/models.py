@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.db.models import CharField, EmailField
+from django.db.models import BooleanField, CharField, EmailField
 from django.utils.translation import gettext_lazy as _
 
 
@@ -28,6 +28,8 @@ class User(AbstractUser):
         verbose_name="email address",
         unique=True,
     )
+    is_verified = BooleanField(_("Is user verified by email"), default=False)
+    is_active = BooleanField(default=True)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
