@@ -1,6 +1,7 @@
 import pytest
-from agriwise.users.models import User
 from rest_framework.test import APIClient
+
+from agriwise.users.models import User
 
 
 @pytest.fixture
@@ -10,6 +11,7 @@ def user(db) -> User:
         email="username1@email.com",
         password="sh0123456789123456",
     )
+
 
 @pytest.fixture
 def auth_client(user):
