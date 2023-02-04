@@ -110,9 +110,9 @@ DJOSER = {
     "SERIALIZERS": {
         "user_create": "agriwise.users.api.serializers.UserCreateSerializer"
     },
-    # "EMAIL": {"activation": "djoser.email.ActivationEmail"},
     "ACTIVATION_URL": "users/auth/api/users/activation/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
+    "LOGIN_FIELD": "email",
 }
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=5),
