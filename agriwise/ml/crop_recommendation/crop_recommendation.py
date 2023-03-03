@@ -1,10 +1,11 @@
-import numpy
 import joblib
+import numpy
 import pandas as pd
+
 
 class RandomForestClassifier:
     def __init__(self):
-        self.model = joblib.load('./random_forest.joblib')
+        self.model = joblib.load("./random_forest.joblib")
 
     def preprocessing(self, input_data):
         # JSON to pandas DataFrame
@@ -14,13 +15,34 @@ class RandomForestClassifier:
 
     def predict(self, input_data):
         return self.model.predict_proba(input_data)
-        
+
     def postprocessing(self, prediction):
-        categories = ['apple', 'banana', 'blackgram', 'chickpea', 'coconut', 'coffee',
-                      'cotton', 'grapes', 'jute', 'kidneybeans', 'lentil', 'maize', 'mango', 'mothbeans', 'mungbean', 'muskmelon', 'orange', 'papaya', 'pigeonpeas', 'pomegranate', 'rice', 'watermelon']
+        categories = [
+            "apple",
+            "banana",
+            "blackgram",
+            "chickpea",
+            "coconut",
+            "coffee",
+            "cotton",
+            "grapes",
+            "jute",
+            "kidneybeans",
+            "lentil",
+            "maize",
+            "mango",
+            "mothbeans",
+            "mungbean",
+            "muskmelon",
+            "orange",
+            "papaya",
+            "pigeonpeas",
+            "pomegranate",
+            "rice",
+            "watermelon",
+        ]
         index_max_predict = numpy.argmax(prediction)
         return categories[index_max_predict]
-        
 
     def compute_prediction(self, input_data):
         try:
@@ -30,5 +52,4 @@ class RandomForestClassifier:
         except Exception as e:
             return {"status": "Error", "message": str(e)}
 
-      
         return prediction
