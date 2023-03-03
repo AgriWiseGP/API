@@ -81,6 +81,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "agriwise.users",
+    "agriwise.crop_recomendation",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -110,6 +111,7 @@ DJOSER = {
     "SERIALIZERS": {
         "user_create": "agriwise.users.api.serializers.UserCreateSerializer"
     },
+    "PASSWORD_RESET_CONFIRM_URL": "users/auth/api/users/password/reset/confirm/{uid}/{token}",
     "ACTIVATION_URL": "users/auth/api/users/activation/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     "LOGIN_FIELD": "email",

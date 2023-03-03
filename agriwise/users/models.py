@@ -17,6 +17,22 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
+    def create_superuser(self, username, email, password=None):
+        if not username:
+            raise TypeError("superuser must have username")
+        if not email:
+            raise TypeError("superuser must have email")
+        if not password:
+            raise TypeError("superuser must have password")
+        email = self.normalize_email(email)
+        user = self.model(email=email, username=username)
+        user.set_password(password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.is_active = True
+        user.save()
+        return user
+
 
 class User(AbstractUser):
     name = CharField(_("Name of User"), blank=True, max_length=255)
