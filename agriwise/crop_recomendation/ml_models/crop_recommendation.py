@@ -5,7 +5,7 @@ import pandas as pd
 
 class RandomForestClassifier:
     def __init__(self):
-        self.model = joblib.load("./random_forest.joblib")
+        self.model = joblib.load('agriwise/crop_recomendation/ml_models/random_forest.joblib')
 
     def preprocessing(self, input_data):
         # JSON to pandas DataFrame
