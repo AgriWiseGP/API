@@ -78,7 +78,7 @@ class CropRecommendationPostListAPIView(APIView):
             )
 
     # may be helpful for adminstrators
-    
+
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
             crops = CropRecommendation.objects.all()
