@@ -1,4 +1,3 @@
-from django.db import transaction
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,7 +12,6 @@ from .serializers import CropRecommendationSerializer, SoilElementsSerializer
 class CropRecommendationPostListAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    @transaction.atomic
     def post(self, request):
         soil_serializer = SoilElementsSerializer(data=request.data)
         if soil_serializer.is_valid():
