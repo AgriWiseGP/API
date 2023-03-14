@@ -29,6 +29,7 @@ urlpatterns += [
         name="api-docs",
     ),
     path("users/", include("agriwise.users.api.urls")),
+    path("crop_recommendation/", include("agriwise.crop_recomendation.urls")),
 ]
 
 if settings.DEBUG:
