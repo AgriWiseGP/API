@@ -29,6 +29,7 @@ urlpatterns += [
         name="api-docs",
     ),
     path("users/", include("agriwise.users.api.urls")),
+    path("soil-fertilizer/", include("agriwise.soil_fertilizer.urls")),
 ]
 
 if settings.DEBUG:
