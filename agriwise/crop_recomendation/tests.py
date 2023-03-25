@@ -19,7 +19,7 @@ class TestCropRecommendationPostListAPIView:
         }
 
         response = client.post("/crop_recommendation/crop/", data)
-        assert response.status_code == 403
+        assert response.status_code == 401
 
     def test_perdiction_by_authenticated_user(self, auth_client, user):
         data = {
@@ -68,10 +68,10 @@ class TestCropsGetAPIView:
         response = auth_client.get("/crop_recommendation/" + user.username + "/crops/")
         assert response.status_code == 200
 
-    def test_unauth_user_his_gets_crops(self, user):
+    def test_unauth_user_gets_his_crops(self, user):
         client = APIClient()
         response = client.get("/crop_recommendation/" + user.username + "/crops/")
-        assert response.status_code == 403
+        assert response.status_code == 401
 
     def test_get_crops_for_deleted_account(self, auth_client, user):
         username = "shrouk"
@@ -118,7 +118,7 @@ class TestCropGetDeleteApi:
         response = client.get(
             "/crop_recommendation/" + user.username + "/crops/" + str(crop.id) + "/"
         )
-        assert response.status_code == 403
+        assert response.status_code == 401
 
     def test_get_specific_crop_with_unexistant_user(self, auth_client, user):
         data = {
@@ -183,4 +183,4 @@ class TestCropGetDeleteApi:
         response = client.delete(
             "/crop_recommendation/" + user.username + "/crops/" + str(crop.id) + "/"
         )
-        assert response.status_code == 403
+        assert response.status_code == 401
