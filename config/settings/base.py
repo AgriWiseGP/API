@@ -69,8 +69,8 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "djoser",
-    "django_celery_beat",
     "corsheaders",
+    "django_celery_beat",
     "drf_spectacular",
 ]
 
@@ -331,13 +331,10 @@ SOCIALACCOUNT_FORMS = {"signup": "agriwise.users.forms.UserSocialSignupForm"}
 
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
-
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://0.0.0.0:8000",
+    "http://localhost:3000",
 ]
+CORS_ALLOW_CREDENTIALS = True
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
