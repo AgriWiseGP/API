@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-from agriwise.soil_quality.models import (
-    SoilElement,
-    SoilQuality,
-
-)
+from agriwise.soil_quality.models import SoilElement, SoilQuality
 
 
 @admin.register(SoilQuality)

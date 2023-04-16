@@ -1,22 +1,23 @@
+from django.db import transaction
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.shortcuts import get_object_or_404
-from django.db import transaction
 
-from agriwise.users.models import User
+from agriwise.soil_quality.permissions import IsOwnerOrReadOnly
 
 from .ml_models.soil_quality import Soil_quality_Classifier
-from agriwise.soil_quality.permissions import IsOwnerOrReadOnly
 from .models import SoilQuality
-from .serializers import SoilQualitySerializer, SoilAnalysisSerializer
+from .serializers import SoilAnalysisSerializer, SoilQualitySerializer
 
 
 class SoilQualityPostList(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        soil_quality = SoilQuality.objects.select_related("soil_elements").filter(user=request.user)
+        soil_quality = SoilQuality.objects.select_related("soil_elements").filter(
+            user=request.user
+        )
         serializer = SoilQualitySerializer(soil_quality, many=True)
         return Response(serializer.data)
 
@@ -92,8 +93,9 @@ class SoilQualityDetailsAPIView(APIView):
 
     def get(self, request, pk):
         try:
-            soil_quality = SoilQuality.objects.select_related(
-                "soil_elements").get(id=pk)
+            soil_quality = SoilQuality.objects.select_related("soil_elements").get(
+                id=pk
+            )
             serializer = SoilQualitySerializer(soil_quality)
         except SoilQuality.DoesNotExist as e:
             return Response({"message": str(e)}, status=status.HTTP_404_NOT_FOUND)

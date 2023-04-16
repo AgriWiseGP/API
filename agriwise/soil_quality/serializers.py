@@ -1,7 +1,6 @@
-from django.db import transaction
-from django.db.utils import InternalError
 from rest_framework import serializers
-from agriwise.soil_quality.models import SoilQuality, SoilElement
+
+from agriwise.soil_quality.models import SoilElement, SoilQuality
 
 
 class SoilAnalysisSerializer(serializers.ModelSerializer):

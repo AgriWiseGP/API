@@ -1,11 +1,13 @@
-import numpy
 import pickle
+
 import pandas as pd
 
 
 class Soil_quality_Classifier:
     def __init__(self):
-        with open('agriwise/soil_quality/ml_models/random_forest_pkl.pkl', 'rb') as file:
+        with open(
+            "agriwise/soil_quality/ml_models/random_forest_pkl.pkl", "rb"
+        ) as file:
             self.model = pickle.load(file)
 
     def preprocessing(self, input_data):
@@ -17,7 +19,7 @@ class Soil_quality_Classifier:
         return self.model.predict(input_data)
 
     def postprocessing(self, prediction):
-        categories = ["Less Fertile", "Fertile",  "Highly Fertile"]
+        categories = ["Less Fertile", "Fertile", "Highly Fertile"]
         index_max_predict = prediction
         return categories[index_max_predict]
 

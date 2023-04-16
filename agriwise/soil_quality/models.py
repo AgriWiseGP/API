@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import CharField, DateTimeField, FloatField, ForeignKey
+from django.db.models import DateTimeField, FloatField, ForeignKey
 
 from agriwise.users.models import User
 
