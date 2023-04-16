@@ -40,7 +40,7 @@ class SoilQualityPostList(APIView):
                         soil_elements.zn,
                         soil_elements.fe,
                         soil_elements.cu,
-                        soil_elements.mu,
+                        soil_elements.mn,
                         soil_elements.b,
                     ]
                 ]
