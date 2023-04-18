@@ -28,6 +28,7 @@ urlpatterns += [
     path("crop_recommendation/", include("agriwise.crop_recomendation.urls")),
     path("soil-fertilizer/", include("agriwise.soil_fertilizer.urls")),
     path("soil-quality/", include("agriwise.soil_quality.urls")),
+    path("soil-type/", include("agriwise.soil_type.urls")),
 ]
 
 if settings.DEBUG:

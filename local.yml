@@ -13,7 +13,7 @@ services:
     container_name: agriwise_local_django
     depends_on:
       - postgres
-      - redis
+      # - redis
       - mailhog
     volumes:
       - .:/app:z
@@ -35,6 +35,12 @@ services:
       - agriwise_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
+# for mentoring db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   docs:
     image: agriwise_local_docs
@@ -58,36 +64,36 @@ services:
     ports:
       - "8025:8025"
 
-  redis:
-    image: redis:6
-    container_name: agriwise_local_redis
+  # redis:
+  #   image: redis:6
+  #   container_name: agriwise_local_redis
 
-  celeryworker:
-    <<: *django
-    image: agriwise_local_celeryworker
-    container_name: agriwise_local_celeryworker
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celeryworker
+  # celeryworker:
+  #   <<: *django
+  #   image: agriwise_local_celeryworker
+  #   container_name: agriwise_local_celeryworker
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #     - mailhog
+  #   ports: []
+  #   command: /start-celeryworker
 
-  celerybeat:
-    <<: *django
-    image: agriwise_local_celerybeat
-    container_name: agriwise_local_celerybeat
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celerybeat
+  # celerybeat:
+  #   <<: *django
+  #   image: agriwise_local_celerybeat
+  #   container_name: agriwise_local_celerybeat
+  #   depends_on:
+  #     - redis
+  #     - postgres
+  #     - mailhog
+  #   ports: []
+  #   command: /start-celerybeat
 
-  flower:
-    <<: *django
-    image: agriwise_local_flower
-    container_name: agriwise_local_flower
-    ports:
-      - "5555:5555"
-    command: /start-flower
+  # flower:
+  #   <<: *django
+  #   image: agriwise_local_flower
+  #   container_name: agriwise_local_flower
+  #   ports:
+  #     - "5555:5555"
+  #   command: /start-flower
