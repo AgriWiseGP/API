@@ -16,24 +16,26 @@ class mobile_net:
             )
 
     def preprocessing(self, img_path):
+        file_img_path = img_path.lstrip("/")
         # Check if file exists
-        if not os.path.exists(img_path):
-            raise ValueError("Image file not found at path: " + img_path)
+        if not os.path.exists(file_img_path):
+            raise ValueError("Image file not found at path: " + file_img_path)
 
         # Check if file is an image with a supported format
         supported_formats = [".jpg", ".jpeg", ".png", ".bmp"]
-        file_ext = os.path.splitext(img_path)[1]
+        file_ext = os.path.splitext(file_img_path)[1]
         if file_ext not in supported_formats:
             raise ValueError(
                 "Invalid file format. Only the following formats are supported: "
                 + ", ".join(supported_formats)
             )
-        img = cv2.imread(img_path)
+        img = cv2.imread(file_img_path)
         if img is None:
             raise ValueError("Unable to read image file")
 
         # Resize image to 224x224
         img = cv2.resize(img, (224, 224))
+        img = img / 224.0
 
         # Add batch dimension
         img = numpy.expand_dims(img, axis=0)

@@ -18,8 +18,7 @@ class SoilTypePost(generics.CreateAPIView):
         if serializer.is_valid():
             serializer.save()
             uploaded_file = serializer.data["image"]
-            uploaded_file_path = uploaded_file.lstrip("/")
-            soil_type = mobile_net().compute_prediction(uploaded_file_path)
+            soil_type = mobile_net().compute_prediction(uploaded_file)
             soil_type_serializer = SoilTypeSerializer(data={"soil_type": soil_type})
             user = User.objects.filter(id=request.user.id).first()
             if soil_type_serializer.is_valid():
@@ -51,4 +50,7 @@ class SoilTypeRetrieveDestroy(generics.RetrieveDestroyAPIView):
     def delete(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {"message": "Soil type instance deleted successfully."},
+            status=status.HTTP_204_NO_CONTENT,
+        )
