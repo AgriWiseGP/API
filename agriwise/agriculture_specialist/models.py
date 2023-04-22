@@ -15,7 +15,7 @@ class ProfileUpgradeApplication(models.Model):
         ("R", "Rejected"),
     ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    documents = models.FileField(upload_to=f"users/profile/upgrade/{user.name}/")
+    documents = models.FileField(upload_to="users/profile/upgard/")
     status = models.CharField(choices=STATUS, max_length=1, default="P")
     admin_comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

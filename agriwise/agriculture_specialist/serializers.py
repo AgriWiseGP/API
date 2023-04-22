@@ -32,9 +32,9 @@ class ProfileUpgradeApplicationUserSerializer(ModelSerializer):
         ]
         read_only_fields = [
             "id",
-            "user",
             "status",
             "admin_comment",
             "created_at",
             "updated_at",
         ]
+        extra_kwargs = {"user": {"required": False}}

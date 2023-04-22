@@ -40,14 +40,11 @@ class ProfileUpgradeUserView(APIView):
 
     def post(self, request, *args, **kwargs):
         application_serializer = ProfileUpgradeApplicationUserSerializer(
-            data={"user": request.user.id, **request.data}
+            data={"user": request.user.id, "documents": request.data["documents"]}
         )
-        if application_serializer.is_valid():
-            application_serializer.save()
-            return Response(application_serializer.data, status=status.HTTP_201_CREATED)
-        return Response(
-            application_serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
+        application_serializer.is_valid(raise_exception=True)
+        application_serializer.save()
+        return Response(application_serializer.data, status=status.HTTP_201_CREATED)
 
 
 class ProfileUpgradeUserDetailsView(APIView):
