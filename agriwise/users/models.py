@@ -47,6 +47,6 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
-    is_agriculture_specialist = BooleanField(null=True, blank=True)
+    is_agriculture_specialist = BooleanField(null=True, blank=True, default=False)
     image = ImageField(null=True, blank=True, upload_to=f"user/profile/images/{name}")
     objects = UserManager()

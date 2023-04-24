@@ -10,7 +10,7 @@ class AgricultureSpecialist(models.Model):
 
 class ProfileUpgradeApplication(models.Model):
     STATUS = [
-        ("A", "Acepted"),
+        ("A", "Accepted"),
         ("P", "Pending"),
         ("R", "Rejected"),
     ]

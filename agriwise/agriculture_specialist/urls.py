@@ -7,5 +7,5 @@ from agriwise.agriculture_specialist.views import (
 
 urlpatterns = [
     path("", ProfileUpgradeUserView.as_view()),
-    path("<int:pk>/", ProfileUpgradeUserDetailsView.as_view()),
+    path("<int:pk>", ProfileUpgradeUserDetailsView.as_view()),
 ]

@@ -8,6 +8,6 @@ class UsersConfig(AppConfig):
 
     def ready(self):
         try:
-            import agriwise.users.signals  # noqa F401
+            import agriwise.users.signals.handlers  # noqa F401
         except ImportError:
             pass
