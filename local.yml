@@ -35,6 +35,12 @@ services:
       - agriwise_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
+# for mentoring db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   docs:
     image: agriwise_local_docs
