@@ -1,5 +1,5 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.db.models import BooleanField, CharField, EmailField
+from django.db.models import BooleanField, CharField, EmailField, ImageField
 from django.utils.translation import gettext_lazy as _
 
 
@@ -47,5 +47,6 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
-
+    is_agriculture_specialist = BooleanField(null=True, blank=True, default=False)
+    image = ImageField(null=True, blank=True, upload_to=f"user/profile/images/{name}")
     objects = UserManager()
