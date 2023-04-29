@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
@@ -46,14 +45,6 @@ class ProfileUpgradeAdminDetailsView(APIView):
         )
         application_serializer.is_valid(raise_exception=True)
         application_serializer.save()
-        if application_serializer.data["status"] == "A":
-            user = (
-                get_user_model()
-                .objects.filter(profileupgradeapplication=application.id)
-                .first()
-            )
-            user.is_agriculture_specialist = True
-            user.save()
         return Response(application_serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
@@ -71,7 +62,10 @@ class ProfileUpgradeUserView(APIView):
 
     def post(self, request, *args, **kwargs):
         application_serializer = ProfileUpgradeApplicationUserSerializer(
-            data={"user": request.user.id, "documents": request.data["documents"]}
+            data={
+                "user": request.user.id,
+                "documents": request.data.get("documents", ""),
+            }
         )
         application_serializer.is_valid(raise_exception=True)
         application_serializer.save()
