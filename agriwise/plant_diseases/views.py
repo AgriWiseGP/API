@@ -1,3 +1,5 @@
+from django.db import transaction
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
@@ -47,9 +49,17 @@ class PlantDiseaseRetrieveDestroy(generics.RetrieveDestroyAPIView):
     queryset = PlantDisease.objects.all()
     lookup_field = "id"
 
-    def delete(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
+    def delete(self, request, id):
+        plant_disease = get_object_or_404(PlantDisease, pk=id)
+        try:
+            with transaction.atomic():
+                plant_image = plant_disease.plant_image
+                plant_disease.delete()
+                plant_image.delete()
+        except Exception as e:
+            return Response(
+                {"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
         return Response(
             {"message": "Plant disease instance deleted successfully."},
             status=status.HTTP_204_NO_CONTENT,
