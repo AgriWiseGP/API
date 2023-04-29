@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import PlantImage, PlantDisease
+from .models import PlantDisease, PlantImage
 
 
 class PlantImageSerializer(serializers.ModelSerializer):

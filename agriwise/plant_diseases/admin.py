@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from agriwise.plant_diseases.models import PlantImage, PlantDisease
+from agriwise.plant_diseases.models import PlantDisease, PlantImage
 
 
 @admin.register(PlantDisease)

@@ -12,4 +12,4 @@ class PlantDisease(models.Model):
     disease = models.CharField(max_length=200)
     created_at = DateTimeField(auto_now=True)
     plant_image = ForeignKey(PlantImage, on_delete=models.CASCADE, null=True)
-    user = ForeignKey(User,on_delete=models.CASCADE, null=True)
+    user = ForeignKey(User, on_delete=models.CASCADE, null=True)
