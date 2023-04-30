@@ -83,6 +83,7 @@ LOCAL_APPS = [
     "agriwise.agriculture_specialist",
     "agriwise.core",
     "agriwise.plant_diseases",
+    "agriwise.nearest_lab",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -186,8 +187,7 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-MEDIA_URL = "agriwise/media/"
-MEDIA_URL = "agriwise/media/"
+MEDIA_URL = "/media/"
 
 # TEMPLATES
 # ------------------------------------------------------------------------------
