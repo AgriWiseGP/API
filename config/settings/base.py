@@ -81,6 +81,8 @@ LOCAL_APPS = [
     "agriwise.soil_quality",
     "agriwise.soil_type",
     "agriwise.agriculture_specialist",
+    "agriwise.core",
+    "agriwise.plant_diseases",
     "agriwise.nearest_lab",
     # Your stuff: custom apps go here
 ]

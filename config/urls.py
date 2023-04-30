@@ -34,6 +34,7 @@ urlpatterns += [
         "custom-admin/profile-upgrade/",
         include("agriwise.agriculture_specialist.admin_urls"),
     ),
+    path("plant-diseases/", include("agriwise.plant_diseases.urls")),
     path("nearest-suppliers/", include("agriwise.nearest_lab.urls")),
 ]
 
