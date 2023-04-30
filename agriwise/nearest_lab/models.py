@@ -1,10 +1,8 @@
 from django.db import models
-from django.db.models import FloatField, ForeignKey
-
-from agriwise.users.models import User
+from django.db.models import CharField, FloatField
 
 
 class Location(models.Model):
+    name = CharField(max_length=600)
     long = FloatField()
     lat = FloatField()
-    user = ForeignKey(User, on_delete=models.SET_NULL, null=True)

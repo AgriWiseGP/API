@@ -34,6 +34,7 @@ urlpatterns += [
         "custom-admin/profile-upgrade/",
         include("agriwise.agriculture_specialist.admin_urls"),
     ),
+    path("nearest-suppliers/", include("agriwise.nearest_lab.urls")),
 ]
 
 if settings.DEBUG:

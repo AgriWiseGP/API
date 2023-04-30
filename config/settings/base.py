@@ -79,6 +79,9 @@ LOCAL_APPS = [
     "agriwise.crop_recomendation",
     "agriwise.soil_fertilizer",
     "agriwise.soil_quality",
+    "agriwise.soil_type",
+    "agriwise.agriculture_specialist",
+    "agriwise.nearest_lab",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

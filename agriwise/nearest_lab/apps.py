@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class NearestLabConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'agriwise.nearest_lab'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "agriwise.nearest_lab"
