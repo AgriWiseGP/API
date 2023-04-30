@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
-from agriwise.plant_diseases.permissions import IsOwnerOrReadOnly
+from agriwise.core.permissions import IsOwnerOrReadOnly
 from agriwise.users.models import User
 
 from .ml_model.plant_diseases import mobile_net

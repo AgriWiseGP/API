@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
-from agriwise.soil_type.permissions import IsOwnerOrReadOnly
+from agriwise.core.permissions import IsOwnerOrReadOnly
 from agriwise.users.models import User
 
 from .ml_models.soil_type import mobile_net

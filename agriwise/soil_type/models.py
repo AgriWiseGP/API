@@ -3,13 +3,6 @@ from django.db.models import DateTimeField, ForeignKey, ImageField
 
 from agriwise.users.models import User
 
-# Create your models here.
-
-
-class MyImageModel(models.Model):
-    image = models.ImageField(upload_to="images/")
-    # add any additional fields you need
-
 
 class SoilImage(models.Model):
     image = ImageField(upload_to="soil-type/")

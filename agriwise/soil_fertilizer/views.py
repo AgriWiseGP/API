@@ -4,9 +4,9 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from agriwise.core.permissions import IsOwnerOrReadOnly
 from agriwise.soil_fertilizer.ml.soil_fertilizer_ml_model import SoilFertilizerMLModel
 from agriwise.soil_fertilizer.models import SoilFertilizer
-from agriwise.soil_fertilizer.permissions import IsOwnerOrReadOnly
 from agriwise.soil_fertilizer.serializers import SoilFertilizerSerializer
 
 
