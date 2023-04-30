@@ -1,7 +1,10 @@
+from django.db import transaction
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from agriwise.core.permissions import IsOwnerOrReadOnly
 from agriwise.users.models import User
 
 from .ml_models.crop_recommendation import RandomForestClassifier
@@ -103,42 +106,31 @@ class CropsGetAPIView(APIView):
 
 
 class CropGetDeleteApi(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
 
     def get(self, request, username, crop_id, *args, **kwargs):
-        user = User.objects.filter(username=username).first()
-        crop = CropRecommendation.objects.filter(id=crop_id).first()
-        if user is None:
-            return Response(
-                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+        try:
+            crop = CropRecommendation.objects.select_related("soil_elements").get(
+                id=crop_id, user__username=username
             )
-        if crop is None:
-            return Response(
-                {"error": "Crop not found"}, status=status.HTTP_404_NOT_FOUND
-            )
-
-        crop_serializer = CropRecommendationSerializer(crop)
+            crop_serializer = CropRecommendationSerializer(crop)
+        except CropRecommendation.DoesNotExist as e:
+            return Response({"message": str(e)}, status=status.HTTP_404_NOT_FOUND)
         return Response(crop_serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, username, crop_id, *args, **kwargs):
-        user = User.objects.filter(username=username).first()
-        crop = CropRecommendation.objects.filter(id=crop_id).first()
-        if user is None:
-            return Response(
-                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
-            )
-        if crop is None:
-            return Response(
-                {"error": "Crop not found"}, status=status.HTTP_404_NOT_FOUND
-            )
+        crop = get_object_or_404(
+            CropRecommendation, id=crop_id, user__username=username
+        )
+        try:
+            with transaction.atomic():
+                soil_elements = crop.soil_elements
+                crop.delete()
+                soil_elements.delete()
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_404_NOT_FOUND)
 
-        if request.user.id == crop.user.id:
-            crop.delete()
-            return Response(
-                {"msg": "Crop has been deleted successfully!"},
-                status=status.HTTP_200_OK,
-            )
         return Response(
-            {"error": "You are not authorized to delete this pocropst"},
-            status=status.HTTP_401_UNAUTHORIZED,
+            {"message": "Crop recommendation instance deleted successfully."},
+            status=status.HTTP_200_OK,
         )

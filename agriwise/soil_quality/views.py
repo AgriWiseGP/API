@@ -4,7 +4,7 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from agriwise.soil_quality.permissions import IsOwnerOrReadOnly
+from agriwise.core.permissions import IsOwnerOrReadOnly
 
 from .ml_models.soil_quality import Soil_quality_Classifier
 from .models import SoilQuality
