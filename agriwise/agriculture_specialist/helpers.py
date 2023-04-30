@@ -3,6 +3,7 @@ from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
+
 def send_email(subject, message, recipient_list):
     try:
         email = EmailMessage(
