@@ -35,7 +35,7 @@ urlpatterns += [
         include("agriwise.agriculture_specialist.admin_urls"),
     ),
     path("plant-diseases/", include("agriwise.plant_diseases.urls")),
-    path("nearest-suppliers/", include("agriwise.nearest_lab.urls")),
+    path("nearest/", include("agriwise.nearest_lab.urls")),
 ]
 
 if settings.DEBUG:
