@@ -1,11 +1,16 @@
 from django.urls import path
 
-from .views import LocationList
+from .views import NurseryLocationList, SupplierLocationList
 
 urlpatterns = [
     path(
-        "locations/",
-        LocationList.as_view(),
+        "supplier/",
+        SupplierLocationList.as_view(),
         name="nearest_suppliers_list",
+    ),
+    path(
+        "nursery/",
+        NurseryLocationList.as_view(),
+        name="nearest_nursery_list",
     ),
 ]
