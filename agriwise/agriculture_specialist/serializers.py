@@ -1,6 +1,9 @@
+from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
 
 from .models import ProfileUpgradeApplication
+
+User = get_user_model()
 
 
 class ProfileUpgradeApplicationAdminSerializer(ModelSerializer):
@@ -38,3 +41,26 @@ class ProfileUpgradeApplicationUserSerializer(ModelSerializer):
             "updated_at",
         ]
         extra_kwargs = {"user": {"required": False}}
+
+
+class AgricultureSpecialistSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "name",
+            "username",
+            "email",
+            "is_agriculture_specialist",
+            "image",
+        ]
+        read_only_fields = ["uuid", "email", "is_agriculture_specialist", "username"]
+        extra_kwargs = {"name": {"required": False}, "image": {"required": False}}
+
+        def save(self):
+            name = self.validated_data.get("name", self.instance.name)
+            image = self.validated_data.get("image", self.instance.image)
+            self.instance.name = name
+            self.instance.image = image
+            self.instance.save()
+            return self.instance

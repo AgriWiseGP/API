@@ -1,13 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from agriwise.agriculture_specialist.models import AgricultureSpecialist
+from agriwise.core.helpers import _delete_image
 
 
-@receiver(post_save, sender=get_user_model())
-def create_agriculture_spcialist_instance_when_user_updated(
-    sender, instance, created, *args, **kwargs
-):
-    if not created and instance.is_agriculture_specialist:
-        AgricultureSpecialist.objects.get_or_create(user=instance)
+@receiver(pre_delete, sender=get_user_model())
+def delete_user_image_on_delete(sender, instance, *args, **kwargs):
+    if instance.image:
+        _delete_image(instance.image.path)

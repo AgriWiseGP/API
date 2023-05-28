@@ -1,6 +1,11 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.db import models
 from django.db.models import BooleanField, CharField, EmailField, ImageField
 from django.utils.translation import gettext_lazy as _
+
+from agriwise.core.helpers import _delete_image
 
 
 class UserManager(BaseUserManager):
@@ -43,10 +48,32 @@ class User(AbstractUser):
         verbose_name="email address",
         unique=True,
     )
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
     is_active = BooleanField(default=False)
+    is_agriculture_specialist = BooleanField(null=True, blank=True, default=False)
+    image = ImageField(null=True, blank=True, upload_to="user/profile/images/")
+    previous_image_path = CharField(null=True, blank=True, max_length=500)
+    objects = UserManager()
+
     USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
-    is_agriculture_specialist = BooleanField(null=True, blank=True, default=False)
-    image = ImageField(null=True, blank=True, upload_to=f"user/profile/images/{name}")
-    objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.username
+
+        if self.image:
+            print(self.image.path)
+            if self.previous_image_path and self.image.path != self.previous_image_path:
+                _delete_image(self.previous_image_path)
+            self.previous_image_path = self.image.path
+        else:
+            if self.previous_image_path:
+                _delete_image(self.previous_image_path)
+            self.previous_image_path = None
+        super().save(*args, **kwargs)

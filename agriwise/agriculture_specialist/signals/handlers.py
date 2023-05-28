@@ -1,14 +1,8 @@
-import os
-
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 from agriwise.agriculture_specialist.models import ProfileUpgradeApplication
-
-
-def _delete_document_file(path):
-    if os.path.isfile(path):
-        os.remove(path)
+from agriwise.core.helpers import _delete_document_file
 
 
 @receiver(pre_delete, sender=ProfileUpgradeApplication)

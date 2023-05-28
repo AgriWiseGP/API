@@ -281,3 +281,6 @@ agriwise/media/
 .env
 .envs/*
 !.envs/.local/
+
+# Firebase credentials
+agriwise-569c8-firebase-adminsdk-pr69p-087a569a0e.json

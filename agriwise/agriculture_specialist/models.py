@@ -2,12 +2,6 @@ from django.conf import settings
 from django.db import models
 
 
-class AgricultureSpecialist(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    rate = models.FloatField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-
 class ProfileUpgradeApplication(models.Model):
     STATUS = [
         ("A", "Accepted"),

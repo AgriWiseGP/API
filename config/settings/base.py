@@ -5,6 +5,8 @@ from datetime import timedelta
 from pathlib import Path
 
 import environ
+import firebase_admin
+from firebase_admin import credentials
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # agriwise/
@@ -72,6 +74,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "django_celery_beat",
     "drf_spectacular",
+    "fcm_django",
 ]
 
 LOCAL_APPS = [
@@ -82,6 +85,7 @@ LOCAL_APPS = [
     "agriwise.soil_type",
     "agriwise.agriculture_specialist",
     "agriwise.core",
+    "agriwise.chat",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -102,7 +106,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -185,8 +188,7 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-MEDIA_URL = "agriwise/media/"
-MEDIA_URL = "agriwise/media/"
+MEDIA_URL = "/agriwise/media/"
 
 # TEMPLATES
 # ------------------------------------------------------------------------------
@@ -350,3 +352,20 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+FCM_DJANGO_SETTINGS = {
+    # default: _('FCM Django')
+    # "APP_VERBOSE_NAME": "[string for AppConfig's verbose_name]",
+    # true if you want to have only one active device per registered user at a time
+    # default: False
+    "ONE_DEVICE_PER_USER": False,
+    # devices to which notifications cannot be sent,
+    # are deleted upon receiving error response from FCM
+    # default: False
+    "DELETE_INACTIVE_DEVICES": False,
+}
+
+
+cred = credentials.Certificate(
+    BASE_DIR / "agriwise-569c8-firebase-adminsdk-pr69p-087a569a0e.json"
+)
+firebase_admin.initialize_app(cred)

@@ -9,9 +9,12 @@ from agriwise.core.permissions import IsOwnerUser
 
 from .models import ProfileUpgradeApplication
 from .serializers import (
+    AgricultureSpecialistSerializer,
     ProfileUpgradeApplicationAdminSerializer,
     ProfileUpgradeApplicationUserSerializer,
 )
+
+User = get_user_model()
 
 
 class ProfileUpgradeAdminView(APIView):
@@ -93,3 +96,28 @@ class ProfileUpgradeUserDetailsView(APIView):
             {"message": "Application is deleted successfully."},
             status=status.HTTP_204_NO_CONTENT,
         )
+
+
+class AgricultureSpecialistView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        specialists = User.objects.filter(is_agriculture_specialist=True)
+        specialists_serializer = AgricultureSpecialistSerializer(specialists, many=True)
+        return Response(specialists_serializer.data)
+
+
+class AgricultureSpecialistDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except Exception:
+            raise Http404
+
+    def get(self, request, pk, *args, **kwargs):
+        print(pk)
+        specialist = self.get_object(pk)
+        specialist_serializer = AgricultureSpecialistSerializer(specialist)
+        return Response(specialist_serializer.data)
