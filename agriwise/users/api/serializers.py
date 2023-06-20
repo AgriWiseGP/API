@@ -69,15 +69,30 @@ class UserDetailsSerializer(serializers.ModelSerializer):
             "email",
             "is_agriculture_specialist",
             "image",
+            "date_of_birth",
+            "phone_number",
         ]
-        read_only_fields = ["uuid", "email", "is_agriculture_specialist", "username"]
-        extra_kwargs = {"name": {"required": False}, "image": {"required": False}}
+        read_only_fields = ["id", "email", "is_agriculture_specialist", "username"]
+        extra_kwargs = {
+            "name": {"required": False},
+            "image": {"required": False},
+            "date_of_birth": {"required": False},
+            "phone_number": {"required": False},
+        }
 
         def save(self):
             name = self.validated_data.get("name", self.instance.name)
             image = self.validated_data.get("image", self.instance.image)
+            date_of_birth = self.validated_data.get(
+                "date_of_birth", self.instance.date_of_birth
+            )
+            phone_number = self.validated_data.get(
+                "phone_number", self.instance.phone_number
+            )
             self.instance.name = name
             self.instance.image = image
+            self.instance.date_of_birth = date_of_birth
+            self.instance.phone_number = phone_number
             self.instance.save()
             return self.instance
 

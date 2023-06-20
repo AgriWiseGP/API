@@ -1,5 +1,7 @@
 from django.db.models import Q
 from django.http import Http404
+from fcm_django.models import FCMDevice
+from firebase_admin.messaging import Message as FirebaseMessage
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -104,8 +106,10 @@ class MessageView(APIView):
         serializer = MessageSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
         # send message fire base notification
+        devices = FCMDevice.objects.filter(user=request.user)
+        devices.send_message(FirebaseMessage(data=serializer.data))
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class MessageDetailView(APIView):

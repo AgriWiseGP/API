@@ -57,6 +57,8 @@ class User(AbstractUser):
     is_agriculture_specialist = BooleanField(null=True, blank=True, default=False)
     image = ImageField(null=True, blank=True, upload_to="user/profile/images/")
     previous_image_path = CharField(null=True, blank=True, max_length=500)
+    date_of_birth = models.DateField(blank=True, null=True)
+    phone_number = models.CharField(blank=True, null=True, max_length=11)
     objects = UserManager()
 
     USERNAME_FIELD = "email"
